@@ -17,7 +17,7 @@ class AuthorizationPage extends StatelessWidget {
     final theme = Theme.of(context);
 
     final TextEditingController textController =
-        TextEditingController(text: '(913) 210 95 82');
+        TextEditingController(text: '');
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
@@ -103,6 +103,12 @@ class _NumberTextFieldState extends State<NumberTextField> {
       //this guarantees text field gets focused
       Timer(const Duration(milliseconds: 500), () => focusNode.requestFocus());
     });
+  }
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
   }
 
   @override
