@@ -114,7 +114,7 @@ class _NumberTextFieldState extends State<NumberTextField> {
         Text(TextData.ruNumberPrefix,
             style: theme.textTheme.titleLarge!
                 .apply(color: theme.colorScheme.onSecondary)),
-        IntrinsicWidth(
+        Expanded(
           child: TextField(
             focusNode: focusNode,
             controller: widget.textController,
