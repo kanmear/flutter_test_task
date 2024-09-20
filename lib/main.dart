@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:live_beer/routes/pages/authorization_page.dart';
 
+import 'package:live_beer/ui/data/app_colors.dart';
+import 'package:live_beer/ui/data/app_fonts.dart';
+
 void main() {
   runApp(const LiveBeerApp());
 }
@@ -14,7 +17,8 @@ class LiveBeerApp extends StatelessWidget {
     return MaterialApp(
       title: 'LiveBeer',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: AppColors.lightColorScheme,
+        textTheme: AppFonts.textTheme,
       ),
       home: const AuthorizationPage(),
     );
