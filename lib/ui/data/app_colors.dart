@@ -9,6 +9,7 @@ class AppColors {
   static const Color lightSecondary = Color(0xffF0F0F0);
   static const Color lightOnSecondary = Color(0xff8E8E93);
 
+  static const Color tertiary = Color(0xff007AFF);
   static const Color error = Color(0xffFF0000);
 
   static ColorScheme lightColorScheme = const ColorScheme(
@@ -20,6 +21,7 @@ class AppColors {
     onSurface: lightPrimary,
     error: error,
     onError: lightOnPrimary,
+    tertiary: tertiary,
     brightness: Brightness.light,
   );
 }
