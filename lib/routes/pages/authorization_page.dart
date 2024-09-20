@@ -27,25 +27,48 @@ class AuthorizationPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(TextData.enterYourPhoneNumber,
-                style: theme.textTheme.titleLarge),
-            const SizedBox(height: 8),
-            Text(
-              TextData.weWillSendYouVerificationCode,
-              style: theme.textTheme.labelSmall!
-                  .apply(color: theme.colorScheme.onSecondary),
-            ),
-            const SizedBox(height: 16),
-            NumberTextField(textController: textController),
-            const SizedBox(height: 48),
-            CustomButton(
-              text: TextData.next,
-              onTap: () => {},
-              isActive: () => _isButtonActive(textController),
-              listenables: [textController],
-            )
+            Column(children: [
+              Text(TextData.enterYourPhoneNumber,
+                  style: theme.textTheme.titleLarge),
+              const SizedBox(height: 8),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  TextData.weWillSendYouVerificationCode,
+                  style: theme.textTheme.labelSmall!
+                      .apply(color: theme.colorScheme.onSecondary),
+                ),
+              ),
+              const SizedBox(height: 16),
+              NumberTextField(textController: textController),
+            ]),
+            Column(children: [
+              CustomButton(
+                text: TextData.next,
+                onTap: () => {},
+                isActive: () => _isButtonActive(textController),
+                listenables: [textController],
+              ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(TextData.doNotHaveAnAccount,
+                      style: theme.textTheme.labelMedium),
+                  const SizedBox(width: 8),
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => _navigateToRegistration(),
+                    child: Text(TextData.registration,
+                        style: theme.textTheme.labelMedium!
+                            .apply(color: theme.colorScheme.tertiary)),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+            ])
           ],
         ),
       ),
@@ -54,6 +77,10 @@ class AuthorizationPage extends StatelessWidget {
 
   _isButtonActive(TextEditingController controller) =>
       controller.text.length == correctNumberLength;
+
+  _navigateToRegistration() {
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
+  }
 }
 
 class NumberTextField extends StatefulWidget {
