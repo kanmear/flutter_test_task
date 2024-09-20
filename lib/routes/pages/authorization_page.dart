@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'package:live_beer/ui/widgets/custom_button.dart';
 
@@ -53,10 +56,27 @@ class AuthorizationPage extends StatelessWidget {
       controller.text.length == correctNumberLength;
 }
 
-class NumberTextField extends StatelessWidget {
+class NumberTextField extends StatefulWidget {
   final TextEditingController textController;
 
   const NumberTextField({super.key, required this.textController});
+
+  @override
+  State<NumberTextField> createState() => _NumberTextFieldState();
+}
+
+class _NumberTextFieldState extends State<NumberTextField> {
+  late FocusNode focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode = FocusNode();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      //this guarantees text field gets focused
+      Timer(const Duration(milliseconds: 500), () => focusNode.requestFocus());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +89,8 @@ class NumberTextField extends StatelessWidget {
                 .apply(color: theme.colorScheme.onSecondary)),
         IntrinsicWidth(
           child: TextField(
-            controller: textController,
-            //FIX autofocus not opening keyboard / showing cursor
-            autofocus: true,
+            focusNode: focusNode,
+            controller: widget.textController,
             keyboardType: TextInputType.number,
             cursorColor: theme.colorScheme.onPrimary,
             style: theme.textTheme.titleLarge,
