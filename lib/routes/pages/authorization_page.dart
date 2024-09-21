@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
+import 'package:live_beer/ui/formatters/phone_number_formatter.dart';
 
 import 'package:live_beer/ui/widgets/custom_button.dart';
 
@@ -124,6 +126,10 @@ class _NumberTextFieldState extends State<NumberTextField> {
           child: TextField(
             focusNode: focusNode,
             controller: widget.textController,
+            inputFormatters: [
+              PhoneNumberFormatter(),
+              FilteringTextInputFormatter.allow(RegExp(r'[() 0-9]'))
+            ],
             keyboardType: TextInputType.number,
             cursorColor: theme.colorScheme.onPrimary,
             style: theme.textTheme.titleLarge,
