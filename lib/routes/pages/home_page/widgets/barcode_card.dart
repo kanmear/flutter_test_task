@@ -61,7 +61,7 @@ class GreetingWidget extends StatelessWidget {
                 width: double.infinity,
                 fit: BoxFit.fill,
                 colorFilter: ColorFilter.mode(
-                    theme.colorScheme.onPrimary.withAlpha(30), BlendMode.dstIn),
+                    theme.colorScheme.onPrimary.withAlpha(20), BlendMode.dstIn),
               )
             ],
           )),
