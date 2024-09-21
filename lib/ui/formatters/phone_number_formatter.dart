@@ -34,8 +34,6 @@ class PhoneNumberFormatter extends TextInputFormatter {
 
     return newValue.copyWith(
         text: phoneNumber,
-        selection: newText.length < oldText.length
-            ? null
-            : TextSelection.collapsed(offset: phoneNumber.length));
+        selection: TextSelection.collapsed(offset: phoneNumber.length));
   }
 }
