@@ -1,16 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SavedLitersCard extends StatelessWidget {
-  const SavedLitersCard({super.key});
+  final int liters;
+
+  const SavedLitersCard({super.key, required this.liters});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    int liters = Random().nextInt(10) + 1;
 
     return Container(
       height: 178,

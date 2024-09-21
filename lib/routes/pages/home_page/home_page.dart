@@ -1,10 +1,30 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:live_beer/routes/pages/home_page/widgets/barcode_card.dart';
 import 'package:live_beer/routes/pages/home_page/widgets/saved_liters_card.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late int liters;
+
+  @override
+  void initState() {
+    super.initState();
+    liters = Random().nextInt(10) + 1;
+  }
+
+  Future<void> _refreshLiters() async {
+    await Future.delayed(const Duration(milliseconds: 250));
+    setState(() => liters = Random().nextInt(10) + 1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +35,15 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-            child: ListView(children: const [
-              BarcodeCard(),
-              SizedBox(height: 8),
-              SavedLitersCard(),
-            ])),
+            child: RefreshIndicator(
+              color: theme.colorScheme.onPrimary,
+              onRefresh: _refreshLiters,
+              child: ListView(children: [
+                const BarcodeCard(),
+                const SizedBox(height: 8),
+                SavedLitersCard(liters: liters),
+              ]),
+            )),
       ),
     );
   }
