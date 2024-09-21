@@ -11,7 +11,7 @@ import 'package:live_beer/ui/widgets/custom_button.dart';
 import 'package:live_beer/ui/widgets/toggle_error_text.dart';
 import 'package:live_beer/ui/formatters/phone_number_formatter.dart';
 
-import 'package:live_beer/routes/pages/verification_page.dart';
+import 'package:live_beer/routes/pages/verification_page/verification_page.dart';
 
 import 'package:live_beer/utils.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:live_beer/routes/pages/home/widgets/barcode_card.dart';
+import 'package:live_beer/routes/pages/home_page/widgets/barcode_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
