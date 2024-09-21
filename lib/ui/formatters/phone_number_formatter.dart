@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:live_beer/ui/formatters/regex/regex_utils.dart';
 
 class PhoneNumberFormatter extends TextInputFormatter {
   @override
@@ -20,7 +21,7 @@ class PhoneNumberFormatter extends TextInputFormatter {
       phoneNumber = newText.substring(0, 3);
     }
 
-    phoneNumber = phoneNumber.replaceAll(RegExp(r'\D'), '');
+    phoneNumber = phoneNumber.replaceAll(RegexUtils.nonDigits, '');
     final match =
         RegExp(r'^(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})$').firstMatch(phoneNumber);
 

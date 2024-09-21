@@ -9,6 +9,7 @@ import 'package:live_beer/text_data.dart';
 
 import 'package:live_beer/ui/widgets/custom_button.dart';
 import 'package:live_beer/ui/widgets/toggle_error_text.dart';
+import 'package:live_beer/ui/formatters/regex/regex_utils.dart';
 import 'package:live_beer/ui/formatters/phone_number_formatter.dart';
 
 import 'package:live_beer/routes/pages/verification_page/verification_page.dart';
@@ -106,7 +107,8 @@ class AuthorizationPage extends StatelessWidget {
     int waitTime = Random().nextInt(4) + 1;
     await Future.delayed(Duration(seconds: waitTime));
 
-    if (number.replaceAll(RegExp(r'[ ()]'), '') == registeredNumber) {
+    if (number.replaceAll(RegexUtils.spacesLiteralParentheses, '') ==
+        registeredNumber) {
       if (!context.mounted) return;
 
       Navigator.pushReplacement(
@@ -183,7 +185,8 @@ class _NumberTextFieldState extends State<NumberTextField> {
                 controller: widget.textController,
                 inputFormatters: [
                   PhoneNumberFormatter(),
-                  FilteringTextInputFormatter.allow(RegExp(r'[() 0-9]'))
+                  FilteringTextInputFormatter.allow(
+                      RegexUtils.numbersSpacesLiteralParentheses)
                 ],
                 onChanged: (value) => widget.isNotFoundNotifier.value = false,
                 keyboardType: TextInputType.number,

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:live_beer/ui/formatters/regex/regex_utils.dart';
 
 import 'package:live_beer/ui/formatters/verification_code_formatter.dart';
 
@@ -59,7 +60,7 @@ class _VerificationTextFieldState extends State<VerificationTextField> {
             style: theme.textTheme.bodyLarge!.apply(color: Colors.transparent),
             inputFormatters: [
               VerificationCodeFormatter(),
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+              FilteringTextInputFormatter.allow(RegexUtils.digitsOnly),
             ],
             decoration: const InputDecoration(
               isDense: true,
