@@ -22,6 +22,12 @@ class TextData {
 
   static const String newsDate1 = '20.01.2022';
 
+  //labels
+  static const String homePageLabel = 'Главная';
+  static const String infoPageLabel = 'Информация';
+  static const String shopPageLabel = 'Магазины';
+  static const String profilePageLabel = 'Профиль';
+
   //parameterized text
   static String helloUser(String value) => 'Привет, $value!';
   static String savedLitersAmount(String value) => '$value/10';

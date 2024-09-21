@@ -6,6 +6,7 @@ import 'package:live_beer/routes/pages/home_page/widgets/news_view.dart';
 import 'package:live_beer/routes/pages/home_page/widgets/points_card.dart';
 import 'package:live_beer/routes/pages/home_page/widgets/barcode_card.dart';
 import 'package:live_beer/routes/pages/home_page/widgets/saved_liters_card.dart';
+import 'package:live_beer/text_data.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,10 +34,31 @@ class _HomePageState extends State<HomePage> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: theme.colorScheme.surfaceContainerHighest,
+          unselectedItemColor: theme.colorScheme.onSecondary,
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined), label: TextData.homePageLabel),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.info_outline), label: TextData.infoPageLabel),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart), label: TextData.shopPageLabel),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person), label: TextData.profilePageLabel),
+          ],
+        ),
+      ),
       backgroundColor: theme.colorScheme.secondary,
       body: SafeArea(
         child: Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+            padding: const EdgeInsets.all(16),
             child: RefreshIndicator(
               color: theme.colorScheme.onPrimary,
               onRefresh: _refreshLiters,
