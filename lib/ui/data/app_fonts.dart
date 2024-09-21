@@ -11,7 +11,11 @@ class AppFonts {
     bodySmall: roboto12Weight300,
     labelMedium: roboto14Weight600,
     labelSmall: roboto14Weight400,
+    headlineSmall: sf15Weight400,
   );
+
+  static TextStyle sf15Weight400 =
+      const TextStyle(fontSize: 15, fontWeight: FontWeight.w400);
 
   static TextStyle roboto32Weight600 = TextStyle(
       fontFamily: GoogleFonts.roboto().fontFamily,

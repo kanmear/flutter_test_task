@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:live_beer/text_data.dart';
@@ -59,7 +61,7 @@ class BarcodeCard extends StatelessWidget {
                 )),
             Expanded(
                 child: Container(
-              padding: const EdgeInsets.only(left: 16, right: 16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(10),
@@ -69,9 +71,12 @@ class BarcodeCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 46,
-                    color: theme.colorScheme.tertiary,
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      color: theme.colorScheme.surface,
+                      child: CustomPaint(painter: BarcodePainter()),
+                    ),
                   ),
                   const SizedBox(height: 8),
                   FutureBuilder<String>(
@@ -81,18 +86,7 @@ class BarcodeCard extends StatelessWidget {
                             ConnectionState.waiting) {
                           return const LoadingIndicator();
                         } else {
-                          final barcode = snapshot.data!;
-
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              for (var s in barcode.split(''))
-                                Text(
-                                  s,
-                                  style: theme.textTheme.titleSmall,
-                                )
-                            ],
-                          );
+                          return JustifyBarcodeNumbers(barcode: snapshot.data!);
                         }
                       }),
                 ],
@@ -103,12 +97,62 @@ class BarcodeCard extends StatelessWidget {
   }
 
   Future<String> _getUsername() async {
-    await Future.delayed(const Duration(milliseconds: 250));
+    // await Future.delayed(const Duration(milliseconds: 250));
     return TextData.username;
   }
 
   Future<String> _getBarcode() async {
-    await Future.delayed(const Duration(milliseconds: 250));
+    // await Future.delayed(const Duration(milliseconds: 250));
     return '1234567010356443';
+  }
+}
+
+class JustifyBarcodeNumbers extends StatelessWidget {
+  final String barcode;
+
+  const JustifyBarcodeNumbers({super.key, required this.barcode});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    final arr = barcode.split('');
+
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      for (var s in arr) Text(s, style: theme.textTheme.headlineSmall)
+    ]);
+  }
+}
+
+class BarcodePainter extends CustomPainter {
+  final Random random = Random();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = Colors.black
+      ..style = PaintingStyle.fill;
+
+    double xPos = 0;
+
+    while (xPos < size.width) {
+      double lineWidth = random.nextDouble() * 7 + 1;
+      double lineHeight = size.height;
+
+      if (xPos + lineWidth > size.width) {
+        lineWidth = size.width - xPos;
+      }
+
+      canvas.drawRect(
+        Rect.fromLTWH(xPos, 0, lineWidth, lineHeight),
+        paint,
+      );
+      xPos += lineWidth + random.nextDouble() * 5;
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
   }
 }
