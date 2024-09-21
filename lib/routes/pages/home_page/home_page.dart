@@ -34,31 +34,7 @@ class _HomePageState extends State<HomePage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: BottomNavigationBar(
-          unselectedLabelStyle: theme.textTheme.bodySmall,
-          selectedLabelStyle: theme.textTheme.bodySmall,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: theme.colorScheme.surfaceContainerHighest,
-          unselectedItemColor: theme.colorScheme.onSecondary,
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined), label: TextData.homePageLabel),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.info_outline), label: TextData.infoPageLabel),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart_outlined),
-                label: TextData.shopPageLabel),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
-                label: TextData.profilePageLabel),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const BottomNavBar(),
       backgroundColor: theme.colorScheme.secondary,
       body: SafeArea(
         child: Padding(
@@ -77,6 +53,41 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 24),
               ]),
             )),
+      ),
+    );
+  }
+}
+
+class BottomNavBar extends StatelessWidget {
+  const BottomNavBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+      ),
+      child: BottomNavigationBar(
+        unselectedLabelStyle: theme.textTheme.bodySmall,
+        selectedLabelStyle: theme.textTheme.bodySmall,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: theme.colorScheme.surfaceContainerHighest,
+        unselectedItemColor: theme.colorScheme.onSecondary,
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined), label: TextData.homePageLabel),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.info_outline), label: TextData.infoPageLabel),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart_outlined),
+              label: TextData.shopPageLabel),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              label: TextData.profilePageLabel),
+        ],
       ),
     );
   }
