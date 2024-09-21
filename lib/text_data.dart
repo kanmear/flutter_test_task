@@ -12,8 +12,15 @@ class TextData {
   static const String everyEleventhLiter = 'Каждый 11 литр в подарок';
   static const String accumulatedPoint = 'Накоплено баллов';
   static const String collectPoints = 'Собирайте баллы и получайте бонусы';
+  static const String beInTouch = 'Будь в курсе';
 
   static const String username = 'Дмитрий';
+
+  static const String newsTitle1 =
+      'Новые сорта крафта уже в наличии в магазинах';
+  static const String newsTitle2 = 'Нам 10 лет повышаем скидку до 10% на всё!';
+
+  static const String newsDate1 = '20.01.2022';
 
   //parameterized text
   static String helloUser(String value) => 'Привет, $value!';

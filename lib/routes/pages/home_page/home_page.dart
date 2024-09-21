@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import 'package:live_beer/routes/pages/home_page/widgets/news_view.dart';
 import 'package:live_beer/routes/pages/home_page/widgets/points_card.dart';
 import 'package:live_beer/routes/pages/home_page/widgets/barcode_card.dart';
 import 'package:live_beer/routes/pages/home_page/widgets/saved_liters_card.dart';
@@ -44,7 +45,9 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 8),
                 SavedLitersCard(liters: liters),
                 const SizedBox(height: 8),
-                const PointsCard()
+                const PointsCard(),
+                const SizedBox(height: 24),
+                const NewsView()
               ]),
             )),
       ),
