@@ -49,9 +49,11 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.info_outline), label: TextData.infoPageLabel),
             BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart), label: TextData.shopPageLabel),
+                icon: Icon(Icons.shopping_cart_outlined),
+                label: TextData.shopPageLabel),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person), label: TextData.profilePageLabel),
+                icon: Icon(Icons.person_outline),
+                label: TextData.profilePageLabel),
           ],
         ),
       ),
