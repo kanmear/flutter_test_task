@@ -40,6 +40,8 @@ class _HomePageState extends State<HomePage> {
           highlightColor: Colors.transparent,
         ),
         child: BottomNavigationBar(
+          unselectedLabelStyle: theme.textTheme.bodySmall,
+          selectedLabelStyle: theme.textTheme.bodySmall,
           type: BottomNavigationBarType.fixed,
           backgroundColor: theme.colorScheme.surfaceContainerHighest,
           unselectedItemColor: theme.colorScheme.onSecondary,
