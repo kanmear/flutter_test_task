@@ -16,34 +16,37 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-        style: ButtonStyle(
-            padding: WidgetStateProperty.all(EdgeInsets.zero),
-            visualDensity: VisualDensity.compact),
-        onPressed: () => _resolveAction(),
-        child: AnimatedBuilder(
-          animation: Listenable.merge(listenables),
-          builder: (BuildContext context, Widget? child) {
-            final theme = Theme.of(context);
+    return AnimatedBuilder(
+        animation: Listenable.merge(listenables),
+        builder: (BuildContext context, Widget? child) {
+          final theme = Theme.of(context);
 
-            final buttonColor = _resolveColor(theme);
-
-            return Container(
-                width: double.infinity,
-                padding: const EdgeInsets.only(top: 18, bottom: 18),
-                decoration: BoxDecoration(
-                    color: buttonColor,
-                    borderRadius: const BorderRadius.all(Radius.circular(10))),
-                child: Text(
-                  text,
-                  style: _resolveStyle(theme),
-                  textAlign: TextAlign.center,
-                ));
-          },
-        ));
+          return TextButton(
+            style: TextButton.styleFrom(
+                backgroundColor: _resolveColor(theme),
+                overlayColor: _resolveOverlayColor(),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                visualDensity: VisualDensity.compact,
+                padding: EdgeInsets.zero),
+            onPressed: () => _resolveAction(),
+            child: Container(
+              padding: const EdgeInsets.only(top: 18, bottom: 18),
+              width: double.infinity,
+              child: Text(
+                text,
+                style: _resolveStyle(theme),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        });
   }
 
   _resolveAction() => isActive() ? onTap() : {};
+
+  _resolveOverlayColor() => isActive() ? Colors.black : Colors.transparent;
 
   _resolveColor(ThemeData theme) =>
       isActive() ? theme.colorScheme.primary : theme.colorScheme.secondary;
