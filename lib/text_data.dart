@@ -10,6 +10,8 @@ class TextData {
   static const String canSendAgainIn = 'Отправить код повторно можно через ';
   static const String savedLiters = 'Накоплено литров';
   static const String everyEleventhLiter = 'Каждый 11 литр в подарок';
+  static const String accumulatedPoint = 'Накоплено баллов';
+  static const String collectPoints = 'Собирайте баллы и получайте бонусы';
 
   static const String username = 'Дмитрий';
 
