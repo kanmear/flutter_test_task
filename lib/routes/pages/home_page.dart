@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:live_beer/text_data.dart';
 
 import 'package:live_beer/ui/widgets/loading_indicator.dart';
@@ -35,30 +37,45 @@ class BarcodeCard extends StatelessWidget {
         height: 166,
         child: Column(
           children: [
-            Container(
-                height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10)),
-                  color: theme.colorScheme.primary,
-                ),
-                child: Center(
-                  child: FutureBuilder<String>(
-                    future: _getUsername(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const LoadingIndicator();
-                      } else {
-                        final username = snapshot.data!;
-                        return Text(
-                          TextData.helloUser(username),
-                          style: theme.textTheme.titleSmall,
-                        );
-                      }
-                    },
+            ClipRect(
+              child: Container(
+                  height: 60,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10)),
+                    color: theme.colorScheme.primary,
                   ),
-                )),
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: FutureBuilder<String>(
+                          future: _getUsername(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const LoadingIndicator();
+                            } else {
+                              final username = snapshot.data!;
+                              return Text(
+                                TextData.helloUser(username),
+                                style: theme.textTheme.titleSmall,
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                      SvgPicture.asset(
+                        'assets/svg/cones_clipped.svg',
+                        width: double.infinity,
+                        fit: BoxFit.fill,
+                        colorFilter: ColorFilter.mode(
+                            theme.colorScheme.onPrimary.withAlpha(30),
+                            BlendMode.dstIn),
+                      )
+                    ],
+                  )),
+            ),
             Expanded(
                 child: Container(
               padding: const EdgeInsets.all(16),
