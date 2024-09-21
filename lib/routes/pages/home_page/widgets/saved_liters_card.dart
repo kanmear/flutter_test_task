@@ -11,19 +11,25 @@ class SavedLitersCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Container(
-      padding: const EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 16),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: theme.colorScheme.onPrimary),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Caps(savedAmount: liters),
-          const SizedBox(height: 16),
-          LitersInfo(savedAmount: liters),
-        ],
-      ),
+    return Stack(
+      children: [
+        Container(
+          padding:
+              const EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 16),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: theme.colorScheme.onPrimary),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Caps(savedAmount: liters),
+              const SizedBox(height: 16),
+              LitersInfo(savedAmount: liters),
+            ],
+          ),
+        ),
+        PresentDrawing(isPresentActive: liters == 10)
+      ],
     );
   }
 }
@@ -94,6 +100,59 @@ class CapIcon extends StatelessWidget {
   }
 }
 
+class PresentDrawing extends StatelessWidget {
+  final bool isPresentActive;
+
+  const PresentDrawing({
+    super.key,
+    required this.isPresentActive,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final blurColor = Theme.of(context).colorScheme.primary;
+
+    return Positioned(
+      top: -1,
+      right: 4,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          ShaderMask(
+            shaderCallback: (bounds) => RadialGradient(
+              colors: [
+                blurColor.withOpacity(0.6),
+                blurColor.withOpacity(0.0),
+              ],
+              center: Alignment.center,
+              radius: 0.5,
+            ).createShader(bounds),
+            child: Container(
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                color: isPresentActive ? Colors.white : Colors.transparent,
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 80,
+            width: 80,
+            child: SvgPicture.asset(
+              'assets/svg/present.svg',
+              fit: BoxFit.fill,
+              colorFilter: ColorFilter.mode(
+                  Colors.white.withOpacity(isPresentActive ? 1 : 0.4),
+                  BlendMode.dstIn),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
 class LitersInfo extends StatelessWidget {
   final int savedAmount;
 
@@ -120,7 +179,12 @@ class LitersInfo extends StatelessWidget {
                 style: theme.textTheme.bodyMedium!.apply(color: textColor)),
           ]),
           const SizedBox(width: 16),
-          VerticalDivider(thickness: 1, color: textColor.withOpacity(0.1)),
+          VerticalDivider(
+            indent: 8,
+            endIndent: 4,
+            thickness: 1,
+            color: textColor.withOpacity(0.1),
+          ),
           const SizedBox(width: 16),
           Flexible(
             child: Text(TextData.everyEleventhLiter,
