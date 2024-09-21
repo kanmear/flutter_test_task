@@ -50,7 +50,8 @@ class PointsCard extends StatelessWidget {
                 ],
               ),
             ),
-            const BottlePicture()
+            const BottlePicture(),
+            const InfoButton()
           ],
         ),
       ),
@@ -79,5 +80,20 @@ class BottlePicture extends StatelessWidget {
             ColorFilter.mode(theme.colorScheme.primary, BlendMode.srcIn),
       ),
     );
+  }
+}
+
+class InfoButton extends StatelessWidget {
+  const InfoButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+        top: -6,
+        right: -6,
+        child: SizedBox(
+            height: 48,
+            width: 48,
+            child: SvgPicture.asset('assets/svg/question_circled.svg')));
   }
 }
