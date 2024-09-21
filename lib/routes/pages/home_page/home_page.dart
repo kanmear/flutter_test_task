@@ -60,8 +60,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: theme.colorScheme.secondary,
       body: SafeArea(
         child: Padding(
-            padding:
-                const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 24),
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
             child: RefreshIndicator(
               color: theme.colorScheme.onPrimary,
               onRefresh: _refreshLiters,
@@ -72,7 +71,8 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 8),
                 const PointsCard(),
                 const SizedBox(height: 24),
-                const NewsView()
+                const NewsView(),
+                const SizedBox(height: 24),
               ]),
             )),
       ),
