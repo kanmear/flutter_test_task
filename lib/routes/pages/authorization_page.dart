@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -20,6 +21,7 @@ class AuthorizationPage extends StatelessWidget {
 
     final TextEditingController textController =
         TextEditingController(text: '');
+    final ValueNotifier<String> failedNumberNotifier = ValueNotifier('');
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
@@ -47,8 +49,10 @@ class AuthorizationPage extends StatelessWidget {
             const Expanded(child: SizedBox()),
             CustomButton(
               text: TextData.next,
-              onTap: () => {},
-              isActive: () => _isButtonActive(textController),
+              callback: () =>
+                  _checkNumber(textController.text, failedNumberNotifier),
+              isActive: () =>
+                  _isButtonActive(textController, failedNumberNotifier),
               listenables: [textController],
             ),
             const SizedBox(height: 24),
@@ -74,8 +78,24 @@ class AuthorizationPage extends StatelessWidget {
     );
   }
 
-  _isButtonActive(TextEditingController controller) =>
-      controller.text.length == correctNumberLength;
+  _isButtonActive(TextEditingController controller,
+      ValueNotifier<String> failedNumberNotifier) {
+    return controller.text.length == correctNumberLength &&
+        controller.text != failedNumberNotifier.value;
+  }
+
+  _checkNumber(
+      String number, ValueNotifier<String> failedNumberNotifier) async {
+    int waitTime = Random().nextInt(2) + 1;
+    await Future.delayed(Duration(seconds: waitTime));
+
+    if (number.replaceAll(RegExp(r'[ ()]'), '') == '1111111111') {
+      // print('Number is registered');
+    } else {
+      // print('Number is not found');
+      failedNumberNotifier.value = number;
+    }
+  }
 
   _navigateToRegistration() {
     // Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
