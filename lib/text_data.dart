@@ -15,6 +15,8 @@ class TextData {
   static const String next = 'Далее';
   static const String enterSystem = 'Войти в систему';
 
+  static const String sendAgain = 'Отправить код повторно';
+
   //extra
   static const String ruNumberPrefix = '+7 ';
 }
