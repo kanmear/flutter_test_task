@@ -9,6 +9,8 @@ class AppColors {
   static const Color lightSecondary = Color(0xffF0F0F0);
   static const Color lightOnSecondary = Color(0xff8E8E93);
 
+  static const Color lightSurfLowest = Color(0xffD1D1D6);
+
   static const Color tertiary = Color(0xff007AFF);
   static const Color error = Color(0xffFF0000);
 
@@ -19,6 +21,7 @@ class AppColors {
     onSecondary: lightOnSecondary,
     surface: lightSurface0,
     onSurface: lightPrimary,
+    surfaceContainerLowest: lightSurfLowest,
     error: error,
     onError: lightOnPrimary,
     tertiary: tertiary,

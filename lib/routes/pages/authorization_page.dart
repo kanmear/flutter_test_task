@@ -109,13 +109,13 @@ class AuthorizationPage extends StatelessWidget {
     if (number.replaceAll(RegExp(r'[ ()]'), '') == registeredNumber) {
       if (!context.mounted) return;
 
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         PageRouteBuilder(
           pageBuilder: (context, _, __) => Utils.wrapWithTheme(
               context,
               VerificationPage(
-                number: '+7 $number',
+                number: number,
               )),
           transitionDuration: Duration.zero,
           reverseTransitionDuration: Duration.zero,
