@@ -5,11 +5,14 @@ class TextData {
       'Мы вышлем вам проверочный код';
   static const String doNotHaveAnAccount = 'У вас нет аккаунта?';
   static const String registration = 'Регистрация';
-  static const String thatNumberIsNotRegistered =
-      'Указанный вами номер не найден';
   static const String enterVerificationCode = 'Введите номер активации';
   static const String weSentItTo = 'Мы выслали его на номер ';
   static const String canSendAgainIn = 'Отправить код повторно можно через ';
+
+  //errors
+  static const String thatNumberIsNotRegistered =
+      'Указанный вами номер не найден';
+  static const String codeIsIncorrect = 'Неверный код';
 
   //buttons
   static const String next = 'Далее';

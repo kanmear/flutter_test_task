@@ -185,6 +185,7 @@ class _NumberTextFieldState extends State<NumberTextField> {
                   PhoneNumberFormatter(),
                   FilteringTextInputFormatter.allow(RegExp(r'[() 0-9]'))
                 ],
+                onChanged: (value) => widget.isNotFoundNotifier.value = false,
                 keyboardType: TextInputType.number,
                 cursorColor: theme.colorScheme.onPrimary,
                 style: theme.textTheme.titleLarge!

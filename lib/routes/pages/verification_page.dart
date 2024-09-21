@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:live_beer/text_data.dart';
 
 import 'package:live_beer/ui/widgets/custom_button.dart';
+import 'package:live_beer/ui/widgets/toggle_error_text.dart';
 import 'package:live_beer/ui/formatters/verification_code_formatter.dart';
 
 import 'package:live_beer/routes/pages/authorization_page.dart';
@@ -14,11 +16,15 @@ import 'package:live_beer/routes/pages/authorization_page.dart';
 import 'package:live_beer/utils.dart';
 
 class VerificationPage extends StatelessWidget {
+  final TextEditingController textController = TextEditingController(text: '');
+  final ValueNotifier<bool> isCodeIncorrectNotifier = ValueNotifier(false);
+
   final String number;
 
   final int codeLength = 4;
+  final String correctCode = '1111';
 
-  const VerificationPage({
+  VerificationPage({
     super.key,
     required this.number,
   });
@@ -26,9 +32,6 @@ class VerificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    final TextEditingController textController =
-        TextEditingController(text: '');
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
@@ -64,12 +67,18 @@ class VerificationPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            VerificationTextField(textController: textController),
+            VerificationTextField(
+                textController: textController,
+                isCodeIncorrectNotifier: isCodeIncorrectNotifier),
+            const SizedBox(height: 8),
+            ToggleErrorText(
+                isVisibleNotifier: isCodeIncorrectNotifier,
+                text: TextData.codeIsIncorrect),
             const Expanded(child: SizedBox()),
             CustomButton(
               text: TextData.enterSystem,
               callback: () => _submitCode(context),
-              isActive: () => _isButtonActive(textController),
+              isActive: () => _isButtonActive(),
               listenables: [textController],
             ),
             const SizedBox(height: 24),
@@ -81,12 +90,24 @@ class VerificationPage extends StatelessWidget {
     );
   }
 
-  _isButtonActive(TextEditingController textController) {
-    return textController.text.length == codeLength;
+  _isButtonActive() {
+    return textController.text.length == codeLength &&
+        !isCodeIncorrectNotifier.value;
   }
 
   _submitCode(BuildContext context) async {
-    return true;
+    isCodeIncorrectNotifier.value = false;
+
+    String code = textController.text;
+
+    int waitTime = Random().nextInt(2) + 1;
+    await Future.delayed(Duration(seconds: waitTime));
+
+    if (code == correctCode) {
+      //go to second screen
+    } else {
+      isCodeIncorrectNotifier.value = true;
+    }
   }
 
   _returnToAuthorizationPage(BuildContext context) {
@@ -190,10 +211,16 @@ class ResendCodeButtonState extends State<ResendCodeButton> {
 }
 
 class VerificationTextField extends StatefulWidget {
+  final ValueNotifier<bool> isCodeIncorrectNotifier;
   final TextEditingController textController;
+
   final ValueNotifier<String> codeNotifier = ValueNotifier('');
 
-  VerificationTextField({super.key, required this.textController});
+  VerificationTextField({
+    super.key,
+    required this.textController,
+    required this.isCodeIncorrectNotifier,
+  });
 
   @override
   State<VerificationTextField> createState() => _VerificationTextFieldState();
@@ -245,17 +272,31 @@ class _VerificationTextFieldState extends State<VerificationTextField> {
               focusedBorder: InputBorder.none,
             ),
           ),
-          ValueListenableBuilder(
-            valueListenable: widget.codeNotifier,
-            builder: (context, code, _) {
+          AnimatedBuilder(
+            animation: Listenable.merge([
+              widget.codeNotifier,
+              widget.isCodeIncorrectNotifier,
+            ]),
+            builder: (context, _) {
+              final code = widget.codeNotifier.value;
+              final isCorrect = !widget.isCodeIncorrectNotifier.value;
+
               return Row(children: [
-                SingleInputField(value: _isInBounds(0, code) ? code[0] : null),
+                SingleInputField(
+                    value: _isInBounds(0, code) ? code[0] : null,
+                    isCorrect: isCorrect),
                 const SizedBox(width: 16),
-                SingleInputField(value: _isInBounds(1, code) ? code[1] : null),
+                SingleInputField(
+                    value: _isInBounds(1, code) ? code[1] : null,
+                    isCorrect: isCorrect),
                 const SizedBox(width: 16),
-                SingleInputField(value: _isInBounds(2, code) ? code[2] : null),
+                SingleInputField(
+                    value: _isInBounds(2, code) ? code[2] : null,
+                    isCorrect: isCorrect),
                 const SizedBox(width: 16),
-                SingleInputField(value: _isInBounds(3, code) ? code[3] : null),
+                SingleInputField(
+                    value: _isInBounds(3, code) ? code[3] : null,
+                    isCorrect: isCorrect),
               ]);
             },
           ),
@@ -273,6 +314,7 @@ class _VerificationTextFieldState extends State<VerificationTextField> {
 
   _updateValueNotifier(String value) {
     widget.codeNotifier.value = value;
+    widget.isCodeIncorrectNotifier.value = false;
   }
 
   _isInBounds(int index, String string) {
@@ -289,10 +331,12 @@ class _VerificationTextFieldState extends State<VerificationTextField> {
 
 class SingleInputField extends StatelessWidget {
   final String? value;
+  final bool isCorrect;
 
   const SingleInputField({
     super.key,
     required this.value,
+    required this.isCorrect,
   });
 
   @override
@@ -310,12 +354,20 @@ class SingleInputField extends StatelessWidget {
       ))),
       child: Align(
           alignment: Alignment.topCenter,
-          child: Text(isValueNotNull ? value! : '●',
-              style: _resolveValueStyle(theme, isValueNotNull))),
+          child: AnimatedDefaultTextStyle(
+            duration: const Duration(milliseconds: 100),
+            curve: Curves.easeInOut,
+            style: _resolveValueStyle(theme, isValueNotNull),
+            child: Text(isValueNotNull ? value! : '●'),
+          )),
     ));
   }
 
   _resolveValueStyle(ThemeData theme, bool isValueNotNull) {
+    if (!isCorrect) {
+      return theme.textTheme.titleMedium!.apply(color: theme.colorScheme.error);
+    }
+
     return isValueNotNull
         ? theme.textTheme.titleMedium
         : theme.textTheme.bodyLarge!
@@ -323,6 +375,10 @@ class SingleInputField extends StatelessWidget {
   }
 
   _resolveBorderColor(ThemeData theme, bool isValueNotNull) {
+    if (!isCorrect) {
+      return theme.colorScheme.error;
+    }
+
     return isValueNotNull
         ? theme.colorScheme.onPrimary
         : theme.colorScheme.surfaceContainerLowest;
