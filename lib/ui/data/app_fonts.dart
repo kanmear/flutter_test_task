@@ -6,6 +6,7 @@ class AppFonts {
   static TextTheme textTheme = TextTheme(
     titleLarge: roboto32Weight600,
     bodyLarge: roboto16Weight600,
+    bodySmall: roboto12Weight300,
     labelMedium: roboto14Weight600,
     labelSmall: roboto14Weight400,
   );
@@ -28,4 +29,9 @@ class AppFonts {
       fontFamily: GoogleFonts.roboto().fontFamily,
       fontSize: 14,
       fontWeight: FontWeight.w600);
+
+  static TextStyle roboto12Weight300 = TextStyle(
+      fontFamily: GoogleFonts.roboto().fontFamily,
+      fontSize: 12,
+      fontWeight: FontWeight.w300);
 }

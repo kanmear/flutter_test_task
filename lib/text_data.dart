@@ -5,6 +5,8 @@ class TextData {
       'Мы вышлем вам проверочный код';
   static const String doNotHaveAnAccount = 'У вас нет аккаунта?';
   static const String registration = 'Регистрация';
+  static const String thatNumberIsNotRegistered =
+      'Указанный вами номер не найден';
 
   //buttons
   static const String next = 'Далее';

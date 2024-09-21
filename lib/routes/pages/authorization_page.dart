@@ -4,24 +4,25 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:live_beer/ui/formatters/phone_number_formatter.dart';
-
-import 'package:live_beer/ui/widgets/custom_button.dart';
 
 import 'package:live_beer/text_data.dart';
+
+import 'package:live_beer/ui/widgets/custom_button.dart';
+import 'package:live_beer/ui/widgets/toggle_error_text.dart';
+import 'package:live_beer/ui/formatters/phone_number_formatter.dart';
 
 class AuthorizationPage extends StatelessWidget {
   final int correctNumberLength = 15;
 
-  const AuthorizationPage({super.key});
+  final TextEditingController textController = TextEditingController(text: '');
+  final ValueNotifier<String> failedNumberNotifier = ValueNotifier('');
+  final ValueNotifier<bool> isNotFoundNotifier = ValueNotifier(false);
+
+  AuthorizationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    final TextEditingController textController =
-        TextEditingController(text: '');
-    final ValueNotifier<String> failedNumberNotifier = ValueNotifier('');
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
@@ -45,14 +46,23 @@ class AuthorizationPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            NumberTextField(textController: textController),
+            NumberTextField(
+              textController: textController,
+              isNotFoundNotifier: isNotFoundNotifier,
+            ),
+            const SizedBox(height: 5),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: ToggleErrorText(
+                text: TextData.thatNumberIsNotRegistered,
+                isVisibleNotifier: isNotFoundNotifier,
+              ),
+            ),
             const Expanded(child: SizedBox()),
             CustomButton(
               text: TextData.next,
-              callback: () =>
-                  _checkNumber(textController.text, failedNumberNotifier),
-              isActive: () =>
-                  _isButtonActive(textController, failedNumberNotifier),
+              callback: () => _submitNumber(),
+              isActive: () => _isButtonActive(),
               listenables: [textController],
             ),
             const SizedBox(height: 24),
@@ -78,22 +88,22 @@ class AuthorizationPage extends StatelessWidget {
     );
   }
 
-  _isButtonActive(TextEditingController controller,
-      ValueNotifier<String> failedNumberNotifier) {
-    return controller.text.length == correctNumberLength &&
-        controller.text != failedNumberNotifier.value;
+  _isButtonActive() {
+    return textController.text.length == correctNumberLength &&
+        textController.text != failedNumberNotifier.value;
   }
 
-  _checkNumber(
-      String number, ValueNotifier<String> failedNumberNotifier) async {
-    int waitTime = Random().nextInt(2) + 1;
+  _submitNumber() async {
+    isNotFoundNotifier.value = false;
+
+    int waitTime = Random().nextInt(4) + 1;
     await Future.delayed(Duration(seconds: waitTime));
 
+    String number = textController.text;
     if (number.replaceAll(RegExp(r'[ ()]'), '') == '1111111111') {
-      // print('Number is registered');
     } else {
-      // print('Number is not found');
       failedNumberNotifier.value = number;
+      isNotFoundNotifier.value = true;
     }
   }
 
@@ -104,8 +114,13 @@ class AuthorizationPage extends StatelessWidget {
 
 class NumberTextField extends StatefulWidget {
   final TextEditingController textController;
+  final ValueNotifier<bool> isNotFoundNotifier;
 
-  const NumberTextField({super.key, required this.textController});
+  const NumberTextField({
+    super.key,
+    required this.textController,
+    required this.isNotFoundNotifier,
+  });
 
   @override
   State<NumberTextField> createState() => _NumberTextFieldState();
@@ -134,31 +149,49 @@ class _NumberTextFieldState extends State<NumberTextField> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Row(
-      children: [
-        Text(TextData.ruNumberPrefix,
-            style: theme.textTheme.titleLarge!
-                .apply(color: theme.colorScheme.onSecondary)),
-        Expanded(
-          child: TextField(
-            focusNode: focusNode,
-            controller: widget.textController,
-            inputFormatters: [
-              PhoneNumberFormatter(),
-              FilteringTextInputFormatter.allow(RegExp(r'[() 0-9]'))
-            ],
-            keyboardType: TextInputType.number,
-            cursorColor: theme.colorScheme.onPrimary,
-            style: theme.textTheme.titleLarge,
-            decoration: const InputDecoration(
-              isDense: true,
-              contentPadding: EdgeInsets.zero,
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
+    return ValueListenableBuilder(
+      valueListenable: widget.isNotFoundNotifier,
+      builder: (context, isNotFound, _) {
+        return Row(
+          children: [
+            Text(TextData.ruNumberPrefix,
+                style: theme.textTheme.titleLarge!
+                    .apply(color: _resolvePrefixColor(theme))),
+            Expanded(
+              child: TextField(
+                focusNode: focusNode,
+                controller: widget.textController,
+                inputFormatters: [
+                  PhoneNumberFormatter(),
+                  FilteringTextInputFormatter.allow(RegExp(r'[() 0-9]'))
+                ],
+                keyboardType: TextInputType.number,
+                cursorColor: theme.colorScheme.onPrimary,
+                style: theme.textTheme.titleLarge!
+                    .apply(color: _resolveNumberColor(theme)),
+                decoration: const InputDecoration(
+                  isDense: true,
+                  contentPadding: EdgeInsets.zero,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                ),
+              ),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
+  }
+
+  _resolvePrefixColor(ThemeData theme) {
+    return (widget.isNotFoundNotifier.value)
+        ? theme.colorScheme.error
+        : theme.colorScheme.onSecondary;
+  }
+
+  _resolveNumberColor(ThemeData theme) {
+    return (widget.isNotFoundNotifier.value)
+        ? theme.colorScheme.error
+        : theme.colorScheme.onPrimary;
   }
 }

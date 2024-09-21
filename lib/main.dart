@@ -28,7 +28,7 @@ class LiveBeerApp extends StatelessWidget {
             data: theme.copyWith(
                 textTheme: theme.textTheme
                     .apply(bodyColor: textColor, displayColor: textColor)),
-            child: const AuthorizationPage());
+            child: AuthorizationPage());
       }),
     );
   }
