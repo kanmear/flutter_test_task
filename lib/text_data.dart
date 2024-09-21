@@ -9,6 +9,11 @@ class TextData {
   static const String weSentItTo = 'Мы выслали его на номер ';
   static const String canSendAgainIn = 'Отправить код повторно можно через ';
 
+  static const String username = 'Дмитрий';
+
+  //parameterized text
+  static String helloUser(String value) => 'Привет, $value!';
+
   //errors
   static const String thatNumberIsNotRegistered =
       'Указанный вами номер не найден';

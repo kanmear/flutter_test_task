@@ -11,6 +11,7 @@ import 'package:live_beer/ui/widgets/custom_button.dart';
 import 'package:live_beer/ui/widgets/toggle_error_text.dart';
 import 'package:live_beer/ui/formatters/verification_code_formatter.dart';
 
+import 'package:live_beer/routes/pages/home_page.dart';
 import 'package:live_beer/routes/pages/authorization_page.dart';
 
 import 'package:live_beer/utils.dart';
@@ -104,7 +105,17 @@ class VerificationPage extends StatelessWidget {
     await Future.delayed(Duration(seconds: waitTime));
 
     if (code == correctCode) {
-      //go to second screen
+      if (!context.mounted) return;
+
+      Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, _, __) =>
+              Utils.wrapWithTheme(context, const HomePage()),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ),
+      );
     } else {
       isCodeIncorrectNotifier.value = true;
     }
@@ -131,13 +142,13 @@ class ResendCodeButton extends StatefulWidget {
 }
 
 class ResendCodeButtonState extends State<ResendCodeButton> {
-  int counter = 10;
+  int counter = 59;
   Timer? countdownTimer;
 
   void startTimer() {
     countdownTimer?.cancel();
     setState(() {
-      counter = 10;
+      counter = 59;
     });
 
     countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
