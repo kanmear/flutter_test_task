@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:live_beer/text_data.dart';
 
 class SavedLitersCard extends StatelessWidget {
   final int liters;
@@ -11,14 +12,16 @@ class SavedLitersCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Container(
-      height: 178,
       padding: const EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 16),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: theme.colorScheme.onPrimary),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Caps(savedAmount: liters),
+          const SizedBox(height: 16),
+          LitersInfo(savedAmount: liters),
         ],
       ),
     );
@@ -88,5 +91,45 @@ class CapIcon extends StatelessWidget {
     return isActive
         ? theme.colorScheme.primary
         : theme.colorScheme.surface.withOpacity(0.4);
+  }
+}
+
+class LitersInfo extends StatelessWidget {
+  final int savedAmount;
+
+  const LitersInfo({
+    super.key,
+    required this.savedAmount,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textColor = theme.colorScheme.surface;
+
+    return IntrinsicHeight(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(TextData.savedLitersAmount(savedAmount.toString()),
+                style: theme.textTheme.displayMedium!.apply(color: textColor)),
+            const SizedBox(height: 4),
+            Text(TextData.savedLiters,
+                style: theme.textTheme.bodyMedium!.apply(color: textColor)),
+          ]),
+          const SizedBox(width: 16),
+          VerticalDivider(thickness: 1, color: textColor.withOpacity(0.1)),
+          const SizedBox(width: 16),
+          Flexible(
+            child: Text(TextData.everyEleventhLiter,
+                textAlign: TextAlign.left,
+                softWrap: true,
+                style: theme.textTheme.labelSmall!.apply(color: textColor)),
+          )
+        ],
+      ),
+    );
   }
 }

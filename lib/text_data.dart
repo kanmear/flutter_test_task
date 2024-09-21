@@ -8,11 +8,14 @@ class TextData {
   static const String enterVerificationCode = 'Введите номер активации';
   static const String weSentItTo = 'Мы выслали его на номер ';
   static const String canSendAgainIn = 'Отправить код повторно можно через ';
+  static const String savedLiters = 'Накоплено литров';
+  static const String everyEleventhLiter = 'Каждый 11 литр в подарок';
 
   static const String username = 'Дмитрий';
 
   //parameterized text
   static String helloUser(String value) => 'Привет, $value!';
+  static String savedLitersAmount(String value) => '$value/10';
 
   //errors
   static const String thatNumberIsNotRegistered =
