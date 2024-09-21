@@ -11,8 +11,13 @@ import 'package:live_beer/ui/widgets/custom_button.dart';
 import 'package:live_beer/ui/widgets/toggle_error_text.dart';
 import 'package:live_beer/ui/formatters/phone_number_formatter.dart';
 
+import 'package:live_beer/routes/pages/verification_page.dart';
+
+import 'package:live_beer/utils.dart';
+
 class AuthorizationPage extends StatelessWidget {
   final int correctNumberLength = 15;
+  final String registeredNumber = '1111111111';
 
   final TextEditingController textController = TextEditingController(text: '');
   final ValueNotifier<String> failedNumberNotifier = ValueNotifier('');
@@ -61,7 +66,7 @@ class AuthorizationPage extends StatelessWidget {
             const Expanded(child: SizedBox()),
             CustomButton(
               text: TextData.next,
-              callback: () => _submitNumber(),
+              callback: () => _submitNumber(context),
               isActive: () => _isButtonActive(),
               listenables: [textController],
             ),
@@ -93,14 +98,29 @@ class AuthorizationPage extends StatelessWidget {
         textController.text != failedNumberNotifier.value;
   }
 
-  _submitNumber() async {
+  _submitNumber(BuildContext context) async {
     isNotFoundNotifier.value = false;
+
+    String number = textController.text;
 
     int waitTime = Random().nextInt(4) + 1;
     await Future.delayed(Duration(seconds: waitTime));
 
-    String number = textController.text;
-    if (number.replaceAll(RegExp(r'[ ()]'), '') == '1111111111') {
+    if (number.replaceAll(RegExp(r'[ ()]'), '') == registeredNumber) {
+      if (!context.mounted) return;
+
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, _, __) => Utils.wrapWithTheme(
+              context,
+              VerificationPage(
+                number: '+7 $number',
+              )),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ),
+      );
     } else {
       failedNumberNotifier.value = number;
       isNotFoundNotifier.value = true;
