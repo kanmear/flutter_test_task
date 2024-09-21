@@ -14,8 +14,7 @@ class SavedLitersCard extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          padding:
-              const EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 16),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: theme.colorScheme.onPrimary),
