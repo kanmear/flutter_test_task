@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:live_beer/routes/pages/home_page/widgets/barcode_card.dart';
+import 'package:live_beer/routes/pages/home_page/widgets/saved_liters_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,7 +15,11 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-            child: ListView(children: const [BarcodeCard()])),
+            child: ListView(children: const [
+              BarcodeCard(),
+              SizedBox(height: 8),
+              SavedLitersCard(),
+            ])),
       ),
     );
   }
