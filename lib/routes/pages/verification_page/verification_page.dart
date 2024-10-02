@@ -8,12 +8,12 @@ import 'package:live_beer/text_data.dart';
 import 'package:live_beer/ui/widgets/custom_button.dart';
 import 'package:live_beer/ui/widgets/toggle_error_text.dart';
 
-import 'package:live_beer/routes/pages/authorization_page.dart';
 import 'package:live_beer/routes/pages/home_page/home_page.dart';
+import 'package:live_beer/routes/pages/authorization_page/authorization_page.dart';
 import 'package:live_beer/routes/pages/verification_page/widgets/resend_code_button.dart';
 import 'package:live_beer/routes/pages/verification_page/widgets/verification_text_field.dart';
 
-import 'package:live_beer/utils.dart';
+import 'package:live_beer/utils/utils.dart';
 
 class VerificationPage extends StatelessWidget {
   final TextEditingController textController = TextEditingController(text: '');
