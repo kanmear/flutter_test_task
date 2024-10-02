@@ -1,8 +1,9 @@
 # LiveBeer
 
-Flutter app made as a part of take-home task. Contains:
-- authorization/verification pages with mocks for external API calls;
-- home page.
+Flutter app made as a part of take-home task. Features:
+- 📱 authorization/verification pages with mocks for external API calls;
+- 🏠 home page where refresh gesture updates amount of bonuses user has and changes UI; 
+- 🌍 uses intl and flutter_localizations to handle internationalization.
 
 Preview:
 
