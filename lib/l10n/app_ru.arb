@@ -1,0 +1,13 @@
+{
+  "userGreeting": "Привет, {username}!",
+  "@helloWorld": {
+    "description": "Приветствие с параметром",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "example": "Иван"
+      }
+    }
+  },
+  "username": "Дмитрий"
+}

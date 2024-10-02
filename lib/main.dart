@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:live_beer/ui/data/app_fonts.dart';
 import 'package:live_beer/ui/data/app_colors.dart';
@@ -17,13 +18,15 @@ class LiveBeerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       title: 'LiveBeer',
       theme: ThemeData(
         colorScheme: AppColors.lightColorScheme,
         textTheme: AppFonts.textTheme,
       ),
       home: Builder(builder: (context) {
-        return Utils.wrapWithTheme(context, HomePage());
+        return Utils.wrapWithTheme(context, const HomePage());
       }),
     );
   }
