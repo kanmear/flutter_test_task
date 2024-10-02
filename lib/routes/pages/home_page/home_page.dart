@@ -1,12 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:live_beer/routes/pages/home_page/widgets/news_view.dart';
 import 'package:live_beer/routes/pages/home_page/widgets/points_card.dart';
 import 'package:live_beer/routes/pages/home_page/widgets/barcode_card.dart';
 import 'package:live_beer/routes/pages/home_page/widgets/saved_liters_card.dart';
-import 'package:live_beer/text_data.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -64,6 +64,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Theme(
       data: Theme.of(context).copyWith(
@@ -76,17 +77,19 @@ class BottomNavBar extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         backgroundColor: theme.colorScheme.surfaceContainerHighest,
         unselectedItemColor: theme.colorScheme.onSecondary,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined), label: TextData.homePageLabel),
+              icon: const Icon(Icons.home_outlined),
+              label: localizations.homePageLabel),
           BottomNavigationBarItem(
-              icon: Icon(Icons.info_outline), label: TextData.infoPageLabel),
+              icon: const Icon(Icons.info_outline),
+              label: localizations.infoPageLabel),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined),
-              label: TextData.shopPageLabel),
+              icon: const Icon(Icons.shopping_cart_outlined),
+              label: localizations.shopPageLabel),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              label: TextData.profilePageLabel),
+              icon: const Icon(Icons.person_outline),
+              label: localizations.profilePageLabel),
         ],
       ),
     );

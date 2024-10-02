@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:live_beer/text_data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PointsCard extends StatelessWidget {
   const PointsCard({super.key});
@@ -35,14 +35,14 @@ class PointsCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    TextData.accumulatedPoint,
+                    AppLocalizations.of(context)!.accumulatedPoints,
                     style: theme.textTheme.bodyMedium!.apply(color: textColor),
                   ),
                   const SizedBox(height: 8),
                   SizedBox(
                     width: halfOfContainerWidth.toDouble(),
                     child: Text(
-                      TextData.collectPoints,
+                      AppLocalizations.of(context)!.collectPoints,
                       style: theme.textTheme.labelSmall!
                           .apply(color: textColor.withOpacity(0.7)),
                     ),

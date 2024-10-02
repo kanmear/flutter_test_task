@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:live_beer/text_data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:live_beer/ui/widgets/loading_indicator.dart';
 
 class NewsView extends StatelessWidget {
@@ -15,7 +16,7 @@ class NewsView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              TextData.beInTouch,
+              AppLocalizations.of(context)!.beInTouch,
               style: theme.textTheme.titleSmall,
             ),
             SizedBox(
@@ -48,7 +49,7 @@ class NewsHorizontalView extends StatelessWidget {
     return SizedBox(
       height: 132,
       child: FutureBuilder<List<Widget>>(
-        future: _getNews(theme),
+        future: _getNews(context, theme),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return ListView.separated(
@@ -77,7 +78,9 @@ class NewsHorizontalView extends StatelessWidget {
     );
   }
 
-  Future<List<Widget>> _getNews(ThemeData theme) async {
+  Future<List<Widget>> _getNews(BuildContext context, ThemeData theme) async {
+    final localizations = AppLocalizations.of(context)!;
+
     await Future.delayed(const Duration(milliseconds: 500));
     return [
       NewsTile(
@@ -85,12 +88,12 @@ class NewsHorizontalView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              TextData.newsTitle1,
+              localizations.newsTitle1,
               style: theme.textTheme.labelMedium,
             ),
             const SizedBox(height: 8),
             Text(
-              TextData.newsDate1,
+              localizations.newsDate1,
               style: theme.textTheme.bodySmall,
             ),
           ],
@@ -102,12 +105,12 @@ class NewsHorizontalView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              TextData.newsTitle2,
+              localizations.newsTitle2,
               style: theme.textTheme.labelMedium,
             ),
             const SizedBox(height: 8),
             Text(
-              TextData.newsDate1,
+              localizations.newsDate1,
               style: theme.textTheme.bodySmall,
             ),
           ],
@@ -119,12 +122,12 @@ class NewsHorizontalView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              TextData.newsTitle2,
+              localizations.newsTitle1,
               style: theme.textTheme.labelMedium,
             ),
             const SizedBox(height: 8),
             Text(
-              TextData.newsDate1,
+              localizations.newsDate1,
               style: theme.textTheme.bodySmall,
             ),
           ],

@@ -2,8 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:live_beer/text_data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:live_beer/ui/widgets/loading_indicator.dart';
 
@@ -42,14 +41,14 @@ class GreetingWidget extends StatelessWidget {
             children: [
               Center(
                 child: FutureBuilder<String>(
-                  future: _getUsername(),
+                  future: _getUsername(context),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const LoadingIndicator();
                     } else {
                       final username = snapshot.data!;
                       return Text(
-                        TextData.helloUser(username),
+                        AppLocalizations.of(context)!.userGreeting(username),
                         style: theme.textTheme.titleSmall,
                       );
                     }
@@ -68,9 +67,9 @@ class GreetingWidget extends StatelessWidget {
     );
   }
 
-  Future<String> _getUsername() async {
+  Future<String> _getUsername(BuildContext context) async {
     // await Future.delayed(const Duration(milliseconds: 250));
-    return TextData.username;
+    return AppLocalizations.of(context)!.username;
   }
 }
 

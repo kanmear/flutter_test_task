@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:live_beer/ui/data/app_fonts.dart';
 import 'package:live_beer/ui/data/app_colors.dart';
 
-import 'package:live_beer/routes/pages/home_page/home_page.dart';
+import 'package:live_beer/routes/pages/authorization_page/authorization_page.dart';
 
 import 'package:live_beer/utils/utils.dart';
 
@@ -26,7 +26,7 @@ class LiveBeerApp extends StatelessWidget {
         textTheme: AppFonts.textTheme,
       ),
       home: Builder(builder: (context) {
-        return Utils.wrapWithTheme(context, const HomePage());
+        return Utils.wrapWithTheme(context, AuthorizationPage());
       }),
     );
   }

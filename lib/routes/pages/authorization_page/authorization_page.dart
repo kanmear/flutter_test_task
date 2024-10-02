@@ -2,10 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-
-import 'package:live_beer/text_data.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:live_beer/ui/widgets/custom_button.dart';
 import 'package:live_beer/ui/widgets/toggle_error_text.dart';
@@ -29,6 +28,7 @@ class AuthorizationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
@@ -40,13 +40,13 @@ class AuthorizationPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(TextData.enterYourPhoneNumber,
+            Text(localizations.enterYourPhoneNumber,
                 style: theme.textTheme.titleLarge),
             const SizedBox(height: 8),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                TextData.weWillSendYouVerificationCode,
+                localizations.weWillSendYouVerificationCode,
                 style: theme.textTheme.labelSmall!
                     .apply(color: theme.colorScheme.onSecondary),
               ),
@@ -60,13 +60,13 @@ class AuthorizationPage extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: ToggleErrorText(
-                text: TextData.thatNumberIsNotRegistered,
+                text: localizations.thatNumberIsNotRegistered,
                 isVisibleNotifier: isNotFoundNotifier,
               ),
             ),
             const Expanded(child: SizedBox()),
             CustomButton(
-              text: TextData.next,
+              text: localizations.next,
               callback: () => _submitNumber(context),
               isActive: () => _isButtonActive(),
               listenables: [textController],
@@ -75,13 +75,13 @@ class AuthorizationPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(TextData.doNotHaveAnAccount,
+                Text(localizations.doNotHaveAnAccount,
                     style: theme.textTheme.labelMedium),
                 const SizedBox(width: 8),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () => _navigateToRegistration(),
-                  child: Text(TextData.registration,
+                  child: Text(localizations.registration,
                       style: theme.textTheme.labelMedium!
                           .apply(color: theme.colorScheme.tertiary)),
                 ),
@@ -170,13 +170,14 @@ class _NumberTextFieldState extends State<NumberTextField> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return ValueListenableBuilder(
       valueListenable: widget.isNotFoundNotifier,
       builder: (context, isNotFound, _) {
         return Row(
           children: [
-            Text(TextData.ruNumberPrefix,
+            Text(localizations.numberPrefix,
                 style: theme.textTheme.titleLarge!
                     .apply(color: _resolvePrefixColor(theme))),
             Expanded(

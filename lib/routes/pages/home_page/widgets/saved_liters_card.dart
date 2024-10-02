@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:live_beer/text_data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SavedLitersCard extends StatelessWidget {
   final int liters;
@@ -171,10 +171,10 @@ class LitersInfo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(TextData.savedLitersAmount(savedAmount.toString()),
+            Text("$savedAmount/10",
                 style: theme.textTheme.displayMedium!.apply(color: textColor)),
             const SizedBox(height: 4),
-            Text(TextData.savedLiters,
+            Text(AppLocalizations.of(context)!.savedLiters,
                 style: theme.textTheme.bodyMedium!.apply(color: textColor)),
           ]),
           const SizedBox(width: 16),
@@ -186,7 +186,7 @@ class LitersInfo extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           Flexible(
-            child: Text(TextData.everyEleventhLiter,
+            child: Text(AppLocalizations.of(context)!.bonusLiter,
                 textAlign: TextAlign.left,
                 softWrap: true,
                 style: theme.textTheme.labelSmall!.apply(color: textColor)),

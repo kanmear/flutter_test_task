@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
-import 'package:live_beer/text_data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ResendCodeButton extends StatefulWidget {
   const ResendCodeButton({super.key});
@@ -47,6 +46,8 @@ class ResendCodeButtonState extends State<ResendCodeButton> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
+
     final isFinished = counter == 0;
 
     if (isFinished) {
@@ -61,7 +62,7 @@ class ResendCodeButtonState extends State<ResendCodeButton> {
                   size: 16, color: theme.colorScheme.tertiary),
               const SizedBox(width: 4),
               Text(
-                TextData.sendAgain,
+                localizations.sendAgain,
                 style: theme.textTheme.labelMedium!
                     .apply(color: theme.colorScheme.tertiary),
               ),
@@ -75,7 +76,7 @@ class ResendCodeButtonState extends State<ResendCodeButton> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(TextData.canSendAgainIn,
+            Text(localizations.canSendAgainIn,
                 style: theme.textTheme.labelSmall!
                     .apply(color: theme.colorScheme.onSecondary)),
             Text(

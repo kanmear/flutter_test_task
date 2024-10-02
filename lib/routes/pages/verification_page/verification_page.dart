@@ -2,8 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-
-import 'package:live_beer/text_data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:live_beer/ui/widgets/custom_button.dart';
 import 'package:live_beer/ui/widgets/toggle_error_text.dart';
@@ -32,6 +31,7 @@ class VerificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
@@ -46,7 +46,7 @@ class VerificationPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(TextData.enterVerificationCode,
+            Text(localizations.enterVerificationCode,
                 style: theme.textTheme.titleLarge),
             const SizedBox(height: 8),
             Align(
@@ -54,12 +54,12 @@ class VerificationPage extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    TextData.weSentItTo,
+                    localizations.weSentItTo,
                     style: theme.textTheme.labelSmall!
                         .apply(color: theme.colorScheme.onSecondary),
                   ),
                   Text(
-                    '+7 ${number.substring(0, 11)} ** **',
+                    '${localizations.numberPrefix}${number.substring(0, 11)} ** **',
                     style: theme.textTheme.labelSmall!
                         .apply(color: theme.colorScheme.onPrimary),
                   ),
@@ -73,10 +73,10 @@ class VerificationPage extends StatelessWidget {
             const SizedBox(height: 8),
             ToggleErrorText(
                 isVisibleNotifier: isCodeIncorrectNotifier,
-                text: TextData.codeIsIncorrect),
+                text: localizations.codeIsIncorrect),
             const Expanded(child: SizedBox()),
             CustomButton(
-              text: TextData.enterSystem,
+              text: localizations.enterSystem,
               callback: () => _submitCode(context),
               isActive: () => _isButtonActive(),
               listenables: [textController],

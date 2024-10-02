@@ -9,5 +9,30 @@
       }
     }
   },
-  "username": "Дмитрий"
+  "username": "Дмитрий",
+  "savedLiters": "Накоплено литров",
+  "bonusLiter": "Каждый 11 литр в подарок",
+  "accumulatedPoints" : "Накоплено баллов",
+  "collectPoints": "Собирайте баллы и получайте бонусы",
+  "beInTouch": "Будь в курсе",
+  "newsTitle1": "Новые сорта крафта уже в наличии в магазинах",
+  "newsTitle2": "Нам 10 лет повышаем скидку до 10% на всё!",
+  "newsDate1": "20.01.2022",
+  "homePageLabel": "Главная",
+  "infoPageLabel": "Информация",
+  "shopPageLabel": "Магазины",
+  "profilePageLabel": "Профиль",
+  "enterYourPhoneNumber": "Введите ваш номер телефона",
+  "weWillSendYouVerificationCode": "Мы вышлем вам проверочный код",
+  "doNotHaveAnAccount": "У вас нет аккаунта?",
+  "registration": "Регистрация",
+  "enterVerificationCode": "Введите номер активации",
+  "weSentItTo": "Мы выслали его на номер ",
+  "canSendAgainIn": "Отправить код повторно можно через ",
+  "thatNumberIsNotRegistered": "Указанный вами номер не найден",
+  "codeIsIncorrect": "Неверный код",
+  "next": "Далее",
+  "enterSystem": "Войти в систему",
+  "sendAgain": "Отправить код повторно",
+  "numberPrefix": "+7 "
 }

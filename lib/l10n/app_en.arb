@@ -9,5 +9,30 @@
     }
   }
   },
-  "username": "Peter"
+  "username": "Peter",
+  "savedLiters": "Liters saved",
+  "bonusLiter": "Every 11 liter is free",
+  "accumulatedPoints" : "Points accumulated",
+  "collectPoints": "Collect points and get rewards",
+  "beInTouch": "Be in touch",
+  "newsTitle1": "New craft sorts already in stock",
+  "newsTitle2": "We are celebrating 10 years with 10% off of everything!",
+  "newsDate1": "20.01.2022",
+  "homePageLabel": "Main",
+  "infoPageLabel": "Info",
+  "shopPageLabel": "Shops",
+  "profilePageLabel": "Profile",
+  "enterYourPhoneNumber": "Enter your phone number",
+  "weWillSendYouVerificationCode": "We will send you a verification code",
+  "doNotHaveAnAccount": "Not registered?",
+  "registration": "Registration",
+  "enterVerificationCode": "Enter verification code",
+  "weSentItTo": "We sent it to ",
+  "canSendAgainIn": "New code available in ",
+  "thatNumberIsNotRegistered": "That number is not registered",
+  "codeIsIncorrect": "Wrong code",
+  "next": "Next",
+  "enterSystem": "Log in",
+  "sendAgain": "Send code again",
+  "numberPrefix": "+1 "
 }
