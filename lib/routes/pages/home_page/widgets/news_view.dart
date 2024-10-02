@@ -85,10 +85,13 @@ class NewsHorizontalView extends StatelessWidget {
     return [
       NewsTile(
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               localizations.newsTitle1,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 4,
               style: theme.textTheme.labelMedium,
             ),
             const SizedBox(height: 8),
@@ -102,10 +105,13 @@ class NewsHorizontalView extends StatelessWidget {
       ),
       NewsTile(
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               localizations.newsTitle2,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 4,
               style: theme.textTheme.labelMedium,
             ),
             const SizedBox(height: 8),
@@ -119,10 +125,13 @@ class NewsHorizontalView extends StatelessWidget {
       ),
       NewsTile(
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               localizations.newsTitle1,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 4,
               style: theme.textTheme.labelMedium,
             ),
             const SizedBox(height: 8),
