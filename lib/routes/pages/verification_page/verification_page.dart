@@ -20,8 +20,8 @@ class VerificationPage extends StatelessWidget {
 
   final String number;
 
-  final int codeLength = 4;
-  final String correctCode = '1111';
+  static const int codeLength = 4;
+  static const String correctCode = '1111';
 
   VerificationPage({
     super.key,
@@ -46,8 +46,11 @@ class VerificationPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(localizations.enterVerificationCode,
-                style: theme.textTheme.titleLarge),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(localizations.enterVerificationCode,
+                  style: theme.textTheme.titleLarge),
+            ),
             const SizedBox(height: 8),
             Align(
               alignment: Alignment.centerLeft,
