@@ -5,6 +5,7 @@ Flutter app made as a part of take-home task. Features:
 - ⚙️ makes use of flutter_bloc to separate state and UI;
 - 🌐 uses http request to initialize state data;
 - 🌍 uses intl and flutter_localizations to handle internationalization;
+- 🎨 leverages ColorScheme and TextTheme for uniform and clean UI;
 - 💎 custom animations;
 
 Preview:
