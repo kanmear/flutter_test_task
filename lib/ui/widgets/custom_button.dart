@@ -65,6 +65,8 @@ class _CustomButtonState extends State<CustomButton> {
 
     await widget.callback();
 
+    if (!context.mounted) return;
+
     setState(() {
       isLoading = false;
     });
