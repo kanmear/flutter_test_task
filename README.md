@@ -1,4 +1,4 @@
-# LiveBeer
+# Test Flutter app
 
 Flutter app made as a part of take-home task. Features:
 - 📱 authorization/verification pages with regex phone formatter and custom TextFields;
