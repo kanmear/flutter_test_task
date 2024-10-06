@@ -15,10 +15,9 @@ class ToggleErrorText extends StatelessWidget {
         valueListenable: isVisibleNotifier,
         builder: (context, isVisible, _) {
           return Text(
-            text,
-            style: theme.textTheme.bodySmall!.apply(
-                color:
-                    isVisible ? theme.colorScheme.error : Colors.transparent),
+            isVisible ? text : '',
+            style: theme.textTheme.bodySmall!
+                .apply(color: theme.colorScheme.error),
           );
         });
   }
