@@ -90,18 +90,21 @@ class CapIcon extends StatelessWidget {
     return SizedBox(
         height: 38,
         width: 38,
-        child: SvgPicture.asset(
-          'assets/svg/cap.svg',
-          fit: BoxFit.fill,
-          colorFilter:
-              ColorFilter.mode(_resolveColor(theme), BlendMode.modulate),
+        child: TweenAnimationBuilder(
+          tween: ColorTween(
+              begin: theme.colorScheme.surface.withOpacity(0.4),
+              end: isActive
+                  ? theme.colorScheme.primary
+                  : theme.colorScheme.surface.withOpacity(0.4)),
+          duration: const Duration(milliseconds: 100),
+          builder: (context, color, _) {
+            return SvgPicture.asset(
+              'assets/svg/cap.svg',
+              fit: BoxFit.fill,
+              colorFilter: ColorFilter.mode(color!, BlendMode.modulate),
+            );
+          },
         ));
-  }
-
-  _resolveColor(ThemeData theme) {
-    return isActive
-        ? theme.colorScheme.primary
-        : theme.colorScheme.surface.withOpacity(0.4);
   }
 }
 
