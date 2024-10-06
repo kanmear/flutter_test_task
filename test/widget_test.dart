@@ -1,30 +1,93 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 
-import 'package:live_beer/main.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'package:live_beer/ui/widgets/custom_button.dart';
+import 'package:live_beer/ui/widgets/toggle_error_text.dart';
+
+import 'package:live_beer/routes/pages/authorization_page/authorization_page.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const LiveBeerApp());
+  testWidgets(
+      'Authorization page should contain phone number TextField and button',
+      (WidgetTester tester) async {
+    await tester
+        .pumpWidget(MaterialApp(home: _wrapLocalizations(AuthorizationPage())));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    await tester.pumpAndSettle(const Duration(seconds: 1));
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    expect(find.byType(NumberTextField), findsOneWidget);
+    expect(find.byType(CustomButton), findsOneWidget);
+  });
+
+  testWidgets('Phone number is formatted correctly when entered',
+      (WidgetTester tester) async {
+    await tester
+        .pumpWidget(MaterialApp(home: _wrapLocalizations(AuthorizationPage())));
+    await tester.pumpAndSettle(const Duration(seconds: 1));
+
+    final phoneNumberField = find.byType(NumberTextField);
+    await tester.enterText(phoneNumberField, '1234567890');
+
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('(123) 456 78 90'), findsOneWidget);
   });
+
+  testWidgets('Check button validates phone number',
+      (WidgetTester tester) async {
+    await tester
+        .pumpWidget(MaterialApp(home: _wrapLocalizations(AuthorizationPage())));
+    await tester.pumpAndSettle(const Duration(seconds: 1));
+
+    final phoneNumberField = find.byType(NumberTextField);
+    await tester.enterText(phoneNumberField, '2222222222');
+    await tester.pump();
+
+    final checkButton = find.byType(CustomButton);
+    await tester.tap(checkButton);
+    await tester.pumpAndSettle(const Duration(seconds: 5));
+
+    final toggleErrorText = find.descendant(
+      of: find.byType(ToggleErrorText),
+      matching: find.byType(Text),
+    );
+    expect(
+      (toggleErrorText.evaluate().single.widget as Text).data!.isNotEmpty,
+      true,
+    );
+  });
+
+  testWidgets('Check button recognizes correct phone number',
+      (WidgetTester tester) async {
+    await tester
+        .pumpWidget(MaterialApp(home: _wrapLocalizations(AuthorizationPage())));
+    await tester.pumpAndSettle(const Duration(seconds: 1));
+
+    final phoneNumberField = find.byType(NumberTextField);
+    await tester.enterText(phoneNumberField, '1111111111');
+    await tester.pump();
+
+    final checkButton = find.byType(CustomButton);
+    await tester.tap(checkButton);
+    await tester.pumpAndSettle(const Duration(seconds: 5));
+
+    final toggleErrorText = find.descendant(
+      of: find.byType(ToggleErrorText),
+      matching: find.byType(Text),
+    );
+    expect(
+      (toggleErrorText.evaluate().single.widget as Text).data!.isEmpty,
+      true,
+    );
+  });
+}
+
+Widget _wrapLocalizations(Widget child) {
+  return MaterialApp(
+      home: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: child));
 }
