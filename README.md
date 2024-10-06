@@ -6,6 +6,7 @@ Flutter app made as a part of take-home task. Features:
 - 🌐 uses http request to initialize state data;
 - 🌍 uses intl and flutter_localizations to handle internationalization;
 - 🎨 leverages ColorScheme and TextTheme for uniform and clean UI;
+- 🛠️ employs widget testing;
 - 💎 custom animations;
 
 Preview:
