@@ -74,7 +74,7 @@ class VerificationPage extends StatelessWidget {
             ToggleErrorText(
                 isVisibleNotifier: isCodeIncorrectNotifier,
                 text: localizations.codeIsIncorrect),
-            const Expanded(child: SizedBox()),
+            const Spacer(),
             CustomButton(
               text: localizations.enterSystem,
               callback: () => _submitCode(context),

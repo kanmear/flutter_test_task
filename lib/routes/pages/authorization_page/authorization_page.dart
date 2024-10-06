@@ -64,7 +64,7 @@ class AuthorizationPage extends StatelessWidget {
                 isVisibleNotifier: isNotFoundNotifier,
               ),
             ),
-            const Expanded(child: SizedBox()),
+            const Spacer(),
             CustomButton(
               text: localizations.next,
               callback: () => _submitNumber(context),
