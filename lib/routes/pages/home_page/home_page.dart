@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final LitersCubit litersCubit = LitersCubit(0);
+    final LitersCubit litersCubit = LitersCubit();
 
     return Scaffold(
       bottomNavigationBar: const BottomNavBar(),
