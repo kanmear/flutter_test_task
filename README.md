@@ -1,10 +1,13 @@
 # LiveBeer
 
 Flutter app made as a part of take-home task. Features:
-- 📱 authorization/verification pages with mocks for external API calls;
-- 🏠 home page where refresh gesture updates amount of bonuses user has and changes UI; 
-- 🌍 uses intl and flutter_localizations to handle internationalization.
+- 📱 authorization/verification pages with regex phone formatter and custom TextFields;
+- ⚙️ makes use of flutter_bloc to separate state and UI;
+- 🌐 uses an http request to initialize state data;
+- 🌍 uses intl and flutter_localizations to handle internationalization;
+- 💎 custom animations;
 
 Preview:
 
-https://github.com/user-attachments/assets/139e92ea-3919-484d-ae98-5d4bedbb80db
+https://github.com/user-attachments/assets/f201edea-1bed-4603-9016-377ff19ddc75
+
