@@ -1,34 +1,40 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SavedLitersCard extends StatelessWidget {
-  final int liters;
+import 'package:live_beer/state/home_page/liters_cubit.dart';
 
-  const SavedLitersCard({super.key, required this.liters});
+class SavedLitersCard extends StatelessWidget {
+  const SavedLitersCard({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Stack(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: theme.colorScheme.onPrimary),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Caps(savedAmount: liters),
-              const SizedBox(height: 16),
-              LitersInfo(savedAmount: liters),
-            ],
-          ),
-        ),
-        PresentDrawing(isPresentActive: liters == 10)
-      ],
+    return BlocBuilder<LitersCubit, int>(
+      builder: (context, liters) {
+        return Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: theme.colorScheme.onPrimary),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Caps(savedAmount: liters),
+                  const SizedBox(height: 16),
+                  LitersInfo(savedAmount: liters),
+                ],
+              ),
+            ),
+            PresentDrawing(isPresentActive: liters == 10)
+          ],
+        );
+      },
     );
   }
 }
