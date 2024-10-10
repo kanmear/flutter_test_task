@@ -11,5 +11,4 @@ Flutter app made as a part of take-home task. Features:
 
 Preview:
 
-https://github.com/user-attachments/assets/f201edea-1bed-4603-9016-377ff19ddc75
-
+https://github.com/user-attachments/assets/7dfc5627-ae22-4c8e-8005-2eb5b96e05e0
