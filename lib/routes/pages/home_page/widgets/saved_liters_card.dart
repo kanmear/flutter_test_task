@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:live_beer/state/home_page/liters_cubit.dart';
+import 'package:live_beer/state/home_page/liters_state.dart';
 
 class SavedLitersCard extends StatelessWidget {
   const SavedLitersCard({super.key});
@@ -13,8 +14,16 @@ class SavedLitersCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return BlocBuilder<LitersCubit, int>(
-      builder: (context, liters) {
+    return BlocBuilder<LitersCubit, LitersState>(
+      builder: (context, state) {
+        if (state.isLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (state.error != null) {
+          return Center(child: Text(state.error!));
+        }
+
         return Stack(
           children: [
             Container(
@@ -25,13 +34,13 @@ class SavedLitersCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Caps(savedAmount: liters),
+                  Caps(savedAmount: state.liters),
                   const SizedBox(height: 16),
-                  LitersInfo(savedAmount: liters),
+                  LitersInfo(savedAmount: state.liters),
                 ],
               ),
             ),
-            PresentDrawing(isPresentActive: liters == 10)
+            PresentDrawing(isPresentActive: state.liters == 10)
           ],
         );
       },
